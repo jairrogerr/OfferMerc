@@ -1,0 +1,54 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Mobile optimizations */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Enable smooth scrolling */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* IE and Edge Legacy */
+* {
+  -ms-overflow-style: none;
+}
+
+/* Safe area support */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Utility class for scrollable content without visible scrollbar */
+.scrollable-hidden {
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.scrollable-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
