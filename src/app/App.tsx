@@ -27,8 +27,17 @@ import { ReportsScreen } from "./components/admin/ReportsScreen";
 import { AdminSettingsScreen } from "./components/admin/AdminSettingsScreen";
 import { AdminBottomNav } from "./components/admin/AdminBottomNav";
 import { ModeToggle } from "./components/ModeToggle";
+import { MerchantDashboard } from "./components/merchant/MerchantDashboard";
+import { AddProductScreen } from "./components/merchant/AddProductScreen";
+import { UpdatePricesScreen } from "./components/merchant/UpdatePricesScreen";
+import { ManagePromotionsScreen } from "./components/merchant/ManagePromotionsScreen";
+import { AddPromotionScreen } from "./components/merchant/AddPromotionScreen";
+import { PendingValidationScreen } from "./components/merchant/PendingValidationScreen";
+import { MerchantProfileScreen } from "./components/merchant/MerchantProfileScreen";
+import { MerchantAnalyticsScreen } from "./components/merchant/MerchantAnalyticsScreen";
+import { MerchantBottomNav } from "./components/merchant/MerchantBottomNav";
 
-type Screen = "splash" | "onboarding" | "login" | "signup" | "forgot" | "home" | "search" | "imageSearch" | "list" | "profile" | "editProfile" | "product" | "market" | "favorites" | "alerts" | "history" | "location" | "accessibility" | "adminDashboard" | "userManagement" | "merchantManagement" | "productValidation" | "reports" | "adminSettings";
+type Screen = "splash" | "onboarding" | "login" | "signup" | "forgot" | "home" | "search" | "imageSearch" | "list" | "profile" | "editProfile" | "product" | "market" | "favorites" | "alerts" | "history" | "location" | "accessibility" | "adminDashboard" | "userManagement" | "merchantManagement" | "productValidation" | "reports" | "adminSettings" | "merchantDashboard" | "addProduct" | "updatePrices" | "managePromotions" | "addPromotion" | "pendingValidation" | "merchantProfile" | "merchantAnalytics";
 
 type AppMode = "customer" | "merchant" | "admin";
 
@@ -66,12 +75,16 @@ export default function App() {
 
   const showBottomNav = ["home", "search", "list", "profile"].includes(currentScreen);
   const showAdminBottomNav = ["adminDashboard", "userManagement", "merchantManagement", "productValidation", "reports", "adminSettings"].includes(currentScreen);
+  const showMerchantBottomNav = ["merchantDashboard", "updatePrices", "merchantAnalytics", "managePromotions", "merchantProfile"].includes(currentScreen);
 
   const handleModeChange = (mode: AppMode) => {
     setAppMode(mode);
     if (mode === "admin") {
       setNavigationStack([]);
       setCurrentScreen("adminDashboard");
+    } else if (mode === "merchant") {
+      setNavigationStack([]);
+      setCurrentScreen("merchantDashboard");
     } else if (mode === "customer") {
       setNavigationStack([]);
       setCurrentScreen("home");
@@ -257,6 +270,66 @@ export default function App() {
             <AdminSettingsScreen onBack={() => navigateBack("adminDashboard")} />
           </motion.div>
         )}
+
+        {currentScreen === "merchantDashboard" && (
+          <motion.div key="merchantDashboard" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+            <MerchantDashboard onNavigate={(screen) => navigateTo(screen as Screen)} />
+          </motion.div>
+        )}
+
+        {currentScreen === "addProduct" && (
+          <motion.div key="addProduct" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}>
+            <AddProductScreen
+              onBack={() => navigateBack("merchantDashboard")}
+              onSave={() => navigateBack("merchantDashboard")}
+            />
+          </motion.div>
+        )}
+
+        {currentScreen === "updatePrices" && (
+          <motion.div key="updatePrices" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
+            <UpdatePricesScreen onBack={() => navigateBack("merchantDashboard")} />
+          </motion.div>
+        )}
+
+        {currentScreen === "managePromotions" && (
+          <motion.div key="managePromotions" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
+            <ManagePromotionsScreen
+              onBack={() => navigateBack("merchantDashboard")}
+              onNavigate={(screen) => navigateTo(screen as Screen)}
+            />
+          </motion.div>
+        )}
+
+        {currentScreen === "addPromotion" && (
+          <motion.div key="addPromotion" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}>
+            <AddPromotionScreen
+              onBack={() => navigateBack("managePromotions")}
+              onSave={() => navigateBack("managePromotions")}
+            />
+          </motion.div>
+        )}
+
+        {currentScreen === "pendingValidation" && (
+          <motion.div key="pendingValidation" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}>
+            <PendingValidationScreen onBack={() => navigateBack("merchantDashboard")} />
+          </motion.div>
+        )}
+
+        {currentScreen === "merchantProfile" && (
+          <motion.div key="merchantProfile" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
+            <MerchantProfileScreen
+              onBack={() => navigateBack("merchantDashboard")}
+              onNavigate={(screen) => navigateTo(screen as Screen)}
+            />
+          </motion.div>
+        )}
+
+        {currentScreen === "merchantAnalytics" && (
+          <motion.div key="merchantAnalytics" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}>
+            <MerchantAnalyticsScreen onBack={() => navigateBack("merchantDashboard")} />
+          </motion.div>
+        )}
       </AnimatePresence>
 
       {showBottomNav && (
@@ -275,6 +348,17 @@ export default function App() {
           currentScreen={currentScreen}
           onNavigate={(screen) => {
             // Admin BottomNav também limpa o stack
+            setNavigationStack([]);
+            setCurrentScreen(screen as Screen);
+          }}
+        />
+      )}
+
+      {showMerchantBottomNav && (
+        <MerchantBottomNav
+          currentScreen={currentScreen}
+          onNavigate={(screen) => {
+            // Merchant BottomNav também limpa o stack
             setNavigationStack([]);
             setCurrentScreen(screen as Screen);
           }}
