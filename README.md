@@ -65,6 +65,29 @@ O protótipo foi desenvolvido com:
 - package.json — dependências e scripts do projeto
 - vite.config.ts — configuração do Vite
 
+## Imagens do projeto
+
+### Telas do consumidor
+
+![Tela do consumidor](/readme/1.png)
+![Tela do consumidor](/readme/2.png)
+![Tela do consumidor](/readme/3.png)
+![Tela do consumidor](/readme/4.png)
+
+### Telas do mercado
+
+![Tela do mercado](/readme/5.png)
+![Tela do mercado](/readme/6.png)
+![Tela do mercado](/readme/7.png)
+![Tela do mercado](/readme/8.png)
+
+### Telas do administrador
+
+![Tela do administrador](/readme/9.png)
+![Tela do administrador](/readme/10.png)
+![Tela do administrador](/readme/11.png)
+![Tela do administrador](/readme/12.png)
+
 ## Como executar localmente
 
 ### Usando pnpm (recomendado)
